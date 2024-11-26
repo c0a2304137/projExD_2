@@ -32,21 +32,26 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
 def gameover(screen: pg.Surface) -> None:
     print("ゲームオーバー")  # 動作確認
     blackout = pg.Surface((WIDTH, HEIGHT))
-    pg.draw.rect(blackout, (0, 0, 0), (0, 0, WIDTH, HEIGHT))
+    pg.draw.rect(blackout, (0, 0, 0), (0, 0, WIDTH, HEIGHT))  # 画面を黒色にする
     blackout.set_alpha(128)  # 透明度の表示 
     screen.blit(blackout, (0, 0))
-    fonto = pg.font.Font(None, 80)
-    text = fonto.render("Game Over", True, (255, 255, 255))
+    fonto = pg.font.Font(None, 80)  # フォント設定
+    text = fonto.render("Game Over", True, (255, 255, 255))  # 文字の設定
     screen.blit(text, (WIDTH//2 - 150, HEIGHT//2 - 40))  # 文字の表示
-    kk_cry_img = pg.image.load("fig/8.png")  # こうかとん画像
-    screen.blit(kk_cry_img, (WIDTH//2 + 200, HEIGHT//2 - 40))  # こうかとん画像の表示
-    screen.blit(kk_cry_img, (WIDTH//2 - 240, HEIGHT//2 - 40))  # こうかとん画像の表示
+    kk_cry_img = pg.image.load("fig/8.png")  # こうかとん画像読み込む
+    screen.blit(kk_cry_img, (WIDTH//2 + 200, HEIGHT//2 - 40))  # こうかとん画像の表示(右) #1
+    screen.blit(kk_cry_img, (WIDTH//2 - 240, HEIGHT//2 - 40))  # こうかとん画像の表示（左） #1
     pg.display.update()
     time.sleep(5)
     return
 
 
 def init_bb_imgs() -> tuple[list[pg.Surface], list[int]]:
+    """
+    こうかとんが爆弾に当たったときにゲームオーバー画面を表示
+    引数:screen
+    戻り値:なし
+    """
     accs = [a for a in range(1, 11)]
     for r in range(1, 11):
         bb_img = pg.Surface((20*r, 20*r))
